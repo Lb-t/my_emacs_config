@@ -144,11 +144,19 @@
   :bind
   ("C-x C-b" .  ibuffer)
 )
+
+(use-package highlight-parentheses
+  :ensure t
+  :config
+  (global-highlight-parentheses-mode))
  
 (load-theme 'spacemacs-dark t)
 ;;(set-fringe-mode '(0 . 0))
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (global-display-line-numbers-mode)
+
+(require 'electric)
+(electric-pair-mode t)
 
 ;;;  
