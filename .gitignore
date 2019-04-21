@@ -1,2 +1,8 @@
 elpa/
 auto-save-list/
+.cache/
+recentf
+smex-items
+transient/
+projectile-bookmarks.eld
+.lsp-session-v1

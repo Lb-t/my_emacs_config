@@ -28,17 +28,29 @@
   :config
   (evil-mode))
   
-;;(require 'evil)
-;;(evil-mode 1)
-
-(use-package neotree
+(use-package treemacs
   :ensure t
-  :bind ("C-c t" . neotree-toggle))
+  :bind
+  ("C-c t"   . treemacs)
+)
 
-;;(require 'neotree)
-;;(global-set-key [f8] 'neotree-toggle)
-;;(global-set-key (kbd "C-c t") 'neotree-toggle)
-;;(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+(use-package treemacs-evil
+  :ensure t
+  :after treemacs evil
+  )
+(use-package treemacs-projectile
+  :ensure t
+  :after treemacs projectile
+  )
+
+(use-package treemacs-icons-dired
+  :after treemacs dired
+  :ensure t
+  :config (treemacs-icons-dired-mode))
+
+(use-package treemacs-magit
+  :after treemacs magit transpose-frame
+  :ensure t)
 
 (use-package imenu-list
   :ensure t
@@ -67,6 +79,7 @@
   :bind (
 	 ("C-c d" . lsp-find-definition)
 	 ("C-c r" . lsp-find-references)
+         ("C-c f" . lsp-format-buffer)
 	 )
  )
 
@@ -100,7 +113,38 @@
   :bind (("C-c g s" . magit-status)
 	 ("C-c g l" . magit-log-current)))
 
+(use-package cmake-mode
+  :ensure t
+  )
 
+(use-package winum
+  :ensure t
+  :config
+  (winum-mode)
+  )
+
+(use-package smex
+  :ensure t
+  :bind
+  ("C-c x" . smex)
+  :config
+  (smex-initialize)
+)
+
+(use-package projectile
+  :ensure t
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :config
+  (projectile-mode +1)
+  )
+
+(use-package ibuffer
+  :ensure t
+  :bind
+  ("C-x C-b" .  ibuffer)
+)
+ 
 (load-theme 'spacemacs-dark t)
 ;;(set-fringe-mode '(0 . 0))
 (scroll-bar-mode -1)
