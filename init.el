@@ -31,7 +31,7 @@
 (use-package treemacs
   :ensure t
   :bind
-  ("C-c t"   . treemacs)
+  ("C-c t" . treemacs)
 )
 
 (use-package treemacs-evil
@@ -84,6 +84,7 @@
  )
 
 (add-hook 'c-mode-hook #'lsp)
+(add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode)))
 (setq lsp-prefer-flymake nil)
 (setq lsp-print-io t)
 
@@ -145,6 +146,10 @@
   ("C-x C-b" .  ibuffer)
 )
 
+(use-package transpose-frame
+  :ensure t
+)
+
 (use-package highlight-parentheses
   :ensure t
   :config
@@ -154,8 +159,8 @@
 ;;(set-fringe-mode '(0 . 0))
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
-(global-display-line-numbers-mode)
-
+;;(global-display-line-numbers-mode)
+(menu-bar-mode -1)
 (require 'electric)
 (electric-pair-mode t)
 
