@@ -31,7 +31,7 @@
 (use-package treemacs
   :ensure t
   :bind
-  ("C-c t" . treemacs)
+  ("C-c o t" . treemacs)
 )
 
 (use-package treemacs-evil
@@ -52,6 +52,37 @@
   :after treemacs magit transpose-frame
   :ensure t)
 
+(use-package neotree
+  :ensure t
+  :bind ("C-c t" . neotree-toggle)
+  :config
+  (add-hook 'neotree-mode-hook
+        (lambda ()
+          (define-key evil-normal-state-local-map (kbd "TAB")  'neotree-stretch-toggle)
+          (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
+          (define-key evil-normal-state-local-map (kbd "l") 'neotree-enter)
+          (define-key evil-normal-state-local-map (kbd "h") 'neotree-select-up-node)
+          (define-key evil-normal-state-local-map (kbd "|") 'neotree-enter-vertical-split)
+          (define-key evil-normal-state-local-map (kbd "-") 'neotree-enter-horizontal-split)
+          (define-key evil-normal-state-local-map (kbd "'") 'neotree-quick-look)
+          (define-key evil-normal-state-local-map (kbd "c") 'neotree-create-node)
+          (define-key evil-normal-state-local-map  (kbd "C") 'neotree-copy-node)
+          (define-key evil-normal-state-local-map (kbd "d") 'neotree-delete-node)
+          (define-key evil-normal-state-local-map (kbd "gr") 'neotree-refresh)
+          (define-key evil-normal-state-local-map (kbd "H") 'neotree-select-previous-sibling-node)
+          (define-key evil-normal-state-local-map (kbd "j") 'neotree-next-line)
+          (define-key evil-normal-state-local-map (kbd "J") 'neotree-select-down-node)
+          (define-key evil-normal-state-local-map (kbd "k") 'neotree-previous-line)
+          (define-key evil-normal-state-local-map (kbd "K") 'neotree-select-up-node)
+          (define-key evil-normal-state-local-map (kbd "L") 'neotree-select-next-sibling-node)
+          (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+          (define-key evil-normal-state-local-map (kbd "r") 'neotree-rename-node)
+          (define-key evil-normal-state-local-map (kbd "R") 'neotree-change-root)
+          (define-key evil-normal-state-local-map (kbd "s") 'neotree-hidden-file-toggle)
+        )
+    )
+ )
+
 (use-package imenu-list
   :ensure t
   :bind ("C-c l" . imenu-list-smart-toggle))
@@ -61,7 +92,21 @@
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
-  (setq enable-recursive-minibuffers t))
+  (setq enable-recursive-minibuffers t)
+(add-hook 'c-mode-hook 'counsel-gtags-mode)
+(add-hook 'c++-mode-hook 'counsel-gtags-mode)
+(with-eval-after-load 'counsel-gtags
+  (define-key counsel-gtags-mode-map (kbd "C-c g d") 'counsel-gtags-find-definition)
+  (define-key counsel-gtags-mode-map (kbd "C-c g r") 'counsel-gtags-find-reference)
+  (define-key counsel-gtags-mode-map (kbd "C-c g s") 'counsel-gtags-find-symbol)
+  (define-key counsel-gtags-mode-map (kbd "C-c g b") 'counsel-gtags-go-backward)
+  (define-key counsel-gtags-mode-map (kbd "C-c g f") 'counsel-gtags-go-forward)
+  (define-key counsel-gtags-mode-map (kbd "C-c g c") 'counsel-gtags-create-tags)
+  (define-key counsel-gtags-mode-map (kbd "C-c g u") 'counsel-gtags-update-tags)
+  )
+)
+
+
 
 ;;(require 'ivy)
 ;;(ivy-mode 1)
@@ -155,6 +200,9 @@
   :config
   (global-highlight-parentheses-mode))
  
+
+
+
 (load-theme 'spacemacs-dark t)
 ;;(set-fringe-mode '(0 . 0))
 (scroll-bar-mode -1)
@@ -163,5 +211,7 @@
 (menu-bar-mode -1)
 (require 'electric)
 (electric-pair-mode t)
+(setq make-backup-files nil)
 
+(setq-default buffer-file-coding-system 'utf-8-unix)
 ;;;  
