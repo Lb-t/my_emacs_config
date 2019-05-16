@@ -87,15 +87,25 @@
   :ensure t
   :bind ("C-c l" . imenu-list-smart-toggle))
 
+
+;;(use-package counsel-projectile :ensure t)
+
 (use-package ivy
   :ensure t
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
-(add-hook 'c-mode-hook 'counsel-gtags-mode)
-(add-hook 'c++-mode-hook 'counsel-gtags-mode)
-(with-eval-after-load 'counsel-gtags
+
+)
+
+
+(use-package counsel-gtags
+  :ensure t
+  :config
+  (add-hook 'c-mode-hook 'counsel-gtags-mode)
+  (add-hook 'c++-mode-hook 'counsel-gtags-mode)
+  (with-eval-after-load 'counsel-gtags
   (define-key counsel-gtags-mode-map (kbd "C-c g d") 'counsel-gtags-find-definition)
   (define-key counsel-gtags-mode-map (kbd "C-c g r") 'counsel-gtags-find-reference)
   (define-key counsel-gtags-mode-map (kbd "C-c g s") 'counsel-gtags-find-symbol)
@@ -105,7 +115,6 @@
   (define-key counsel-gtags-mode-map (kbd "C-c g u") 'counsel-gtags-update-tags)
   )
 )
-
 
 
 ;;(require 'ivy)
@@ -125,6 +134,7 @@
 	 ("C-c d" . lsp-find-definition)
 	 ("C-c r" . lsp-find-references)
          ("C-c f" . lsp-format-buffer)
+         ("C-c F" . lsp-format-region)
 	 )
  )
 
