@@ -199,8 +199,12 @@
   :ensure t
   :config
   (global-highlight-parentheses-mode))
- 
 
+(use-package slime 
+  :ensure t 
+  :config
+  (setq slime-contribs '(slime-fancy))
+)
 
 
 (load-theme 'spacemacs-dark t)
