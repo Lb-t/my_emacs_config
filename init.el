@@ -213,9 +213,15 @@
 (use-package slime 
   :ensure t 
   :config
+  (setq inferior-lisp-program "sbcl")
   (setq slime-contribs '(slime-fancy))
 )
 
+;;windmove
+(global-set-key (kbd "C-c <left>") 'windmove-left)
+(global-set-key (kbd "C-c <right>") 'windmove-right)
+(global-set-key (kbd "C-c <up>") 'windmove-up)
+(global-set-key (kbd "C-c <down>") 'windmove-down)
 
 (load-theme 'spacemacs-dark t)
 ;;(set-fringe-mode '(0 . 0))
