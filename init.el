@@ -126,7 +126,9 @@
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
-
+(use-package yasnippet-snippets
+  :ensure t
+  )
 (use-package lsp-mode
   :ensure t
   :commands lsp
@@ -217,13 +219,16 @@
   (setq slime-contribs '(slime-fancy))
 )
 
+(use-package spacemacs-theme
+  :defer t
+  :init (load-theme 'spacemacs-dark t))
+
 ;;windmove
 (global-set-key (kbd "C-c <left>") 'windmove-left)
 (global-set-key (kbd "C-c <right>") 'windmove-right)
 (global-set-key (kbd "C-c <up>") 'windmove-up)
 (global-set-key (kbd "C-c <down>") 'windmove-down)
 
-(load-theme 'spacemacs-dark t)
 ;;(set-fringe-mode '(0 . 0))
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
