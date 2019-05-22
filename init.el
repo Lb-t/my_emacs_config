@@ -223,6 +223,11 @@
   (setq slime-contribs '(slime-fancy))
 )
 
+(use-package bing-dict
+  :ensure t
+  :bind
+  ("C-c C-d" . bing-dict-brief))
+
 (use-package spacemacs-theme
   :defer t
   :init (load-theme 'spacemacs-dark t))
