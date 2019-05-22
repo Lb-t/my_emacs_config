@@ -181,6 +181,10 @@
   (winum-mode)
   )
 
+(use-package ace-window
+  :ensure t
+  :bind
+  ("C-c w" . ace-window))
 (use-package smex
   :ensure t
   :bind
