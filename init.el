@@ -141,6 +141,7 @@
  )
 
 (add-hook 'c-mode-hook #'lsp)
+(add-hook 'c++-mode-hook #'lsp)
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode)))
 (setq lsp-prefer-flymake nil)
 (setq lsp-print-io t)
@@ -226,7 +227,7 @@
 (use-package bing-dict
   :ensure t
   :bind
-  ("C-c C-d" . bing-dict-brief))
+  ("C-c C-S-d" . bing-dict-brief))
 
 (use-package spacemacs-theme
   :defer t
@@ -248,4 +249,7 @@
 (setq make-backup-files nil)
 
 (setq-default buffer-file-coding-system 'utf-8-unix)
+
+(add-to-list 'default-frame-alist
+             '(font . "Source Code Variable 12"))
 ;;;  
