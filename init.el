@@ -23,11 +23,31 @@
  ;; If there is more than one, they won't work right.
  )
  
+ 
+(use-package evil-leader
+  :ensure t
+  :config
+  (global-evil-leader-mode)
+  (evil-leader/set-leader "<SPC>")
+  (evil-leader/set-key "f f" 'find-file)
+  (evil-leader/set-key "b k" 'kill-buffer)
+  (evil-leader/set-key "b n" 'evil-next-buffer)
+  (evil-leader/set-key "b p" 'evil-prev-buffer)
+  (evil-leader/set-key "b c" 'evil-buffer-new)
+  (evil-leader/set-key "w d" 'delete-window)
+  (evil-leader/set-key "w c" 'evil-window-new)
+  (evil-leader/set-key "w p" 'evil-window-prev)
+  (evil-leader/set-key "w n" 'evil-window-next)
+  (evil-leader/set-key "w v" 'evil-window-vsplit)
+  (evil-leader/set-key "w h" 'evil-window-split)
+   )
+
 (use-package evil
   :ensure t
   :config
   (evil-mode))
-  
+ 
+
 (use-package treemacs
   :ensure t
   :bind
@@ -54,7 +74,8 @@
 
 (use-package neotree
   :ensure t
-  :bind ("C-c t" . neotree-toggle)
+  :init
+  (evil-leader/set-key "f t" 'neotree-toggle)
   :config
   (add-hook 'neotree-mode-hook
         (lambda ()
@@ -85,7 +106,9 @@
 
 (use-package imenu-list
   :ensure t
-  :bind ("C-c l" . imenu-list-smart-toggle))
+  :init
+  (evil-leader/set-key "l l" 'imenu-list-smart-toggle)
+  )
 
 
 ;;(use-package counsel-projectile :ensure t)
@@ -125,26 +148,29 @@
 
 (use-package flycheck
   :ensure t
-  :init (global-flycheck-mode))
+  :init
+  (global-flycheck-mode)
+  (evil-leader/set-key "l e" 'flycheck-next-error)
+  )
+
 (use-package yasnippet-snippets
   :ensure t
   )
 (use-package lsp-mode
   :ensure t
   :commands lsp
-  :bind (
-	 ("C-c d" . lsp-find-definition)
-	 ("C-c r" . lsp-find-references)
-         ("C-c f" . lsp-format-buffer)
-         ("C-c F" . lsp-format-region)
-	 )
+  :init
+  (evil-leader/set-key "l d" 'lsp-find-definition)
+  (evil-leader/set-key "l r" 'lsp-find-references)
+  (evil-leader/set-key "l f" 'lsp-format-buffer)
+  (evil-leader/set-key "l F" 'lsp-format-region)
  )
 
 (add-hook 'c-mode-hook #'lsp)
 (add-hook 'c++-mode-hook #'lsp)
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode)))
 (setq lsp-prefer-flymake nil)
-(setq lsp-print-io t)
+(setq lsp-log-io t)
 
 (use-package lsp-ui
  :ensure t
@@ -162,6 +188,8 @@
 
 (use-package clang-format
   :ensure t
+  :init
+  (evil-leader/set-key-for-mode 'c-mode "b f" 'clang-format-buffer)
   :bind ("C-c c f" . clang-format-buffer))
 
 ;;(require 'clang-format)
@@ -169,6 +197,9 @@
 
 (use-package magit
   :ensure t
+  :init
+  (evil-leader/set-key "g s" 'magit-status)
+  (evil-leader/set-key "g l" 'magit-log-current)
   :bind (("C-c g s" . magit-status)
 	 ("C-c g l" . magit-log-current)))
 
@@ -176,36 +207,33 @@
   :ensure t
   )
 
-(use-package winum
-  :ensure t
-  :config
-  (winum-mode)
-  )
-
 (use-package ace-window
   :ensure t
-  :bind
-  ("C-c w" . ace-window))
+  :init
+  (evil-leader/set-key "w s" 'ace-window)
+  )
+
 (use-package smex
   :ensure t
   :bind
-  ("C-c x" . smex)
+  :init
+  (evil-leader/set-key "x" 'smex)
   :config
   (smex-initialize)
 )
 
 (use-package projectile
   :ensure t
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
+  :init
+  (evil-leader/set-key "p" 'projectile-command-map)
   :config
   (projectile-mode +1)
   )
 
 (use-package ibuffer
   :ensure t
-  :bind
-  ("C-x C-b" .  ibuffer)
+  :init
+  (evil-leader/set-key "b s" 'ibuffer)
 )
 
 (use-package transpose-frame
@@ -217,8 +245,8 @@
   :config
   (global-highlight-parentheses-mode))
 
-(use-package slime 
-  :ensure t 
+(use-package slime
+  :ensure t
   :config
   (setq inferior-lisp-program "sbcl")
   (setq slime-contribs '(slime-fancy))
@@ -226,18 +254,13 @@
 
 (use-package bing-dict
   :ensure t
-  :bind
-  ("C-c C-S-d" . bing-dict-brief))
+  :init
+  (evil-leader/set-key "s d" 'bing-dict-brief)
+  )
 
 (use-package spacemacs-theme
   :defer t
   :init (load-theme 'spacemacs-dark t))
-
-;;windmove
-(global-set-key (kbd "C-c <left>") 'windmove-left)
-(global-set-key (kbd "C-c <right>") 'windmove-right)
-(global-set-key (kbd "C-c <up>") 'windmove-up)
-(global-set-key (kbd "C-c <down>") 'windmove-down)
 
 ;;(set-fringe-mode '(0 . 0))
 (scroll-bar-mode -1)
@@ -252,4 +275,4 @@
 
 (add-to-list 'default-frame-alist
              '(font . "Source Code Variable 12"))
-;;;  
+;;;
