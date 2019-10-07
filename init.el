@@ -258,6 +258,11 @@
   (evil-leader/set-key "s d" 'bing-dict-brief)
   )
 
+(use-package which-key
+  :ensure t
+  :init
+  (which-key-mode))
+
 (use-package spacemacs-theme
   :defer t
   :init (load-theme 'spacemacs-dark t))
