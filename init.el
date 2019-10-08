@@ -270,6 +270,10 @@
 (require 'electric)
 (electric-pair-mode t)
 (setq make-backup-files nil)
+(setq auto-save-file-name-transforms
+          `((".*" ,(concat user-emacs-directory "auto-save/") t)))
+(setq backup-directory-alist
+          `(("." . ,(concat user-emacs-directory "backups"))))
 
 (setq-default buffer-file-coding-system 'utf-8-unix)
 
