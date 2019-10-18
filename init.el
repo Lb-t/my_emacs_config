@@ -39,7 +39,10 @@
   (evil-leader/set-key "w p" 'evil-window-prev)
   (evil-leader/set-key "w n" 'evil-window-next)
   (evil-leader/set-key "w v" 'evil-window-vsplit)
-  (evil-leader/set-key "w h" 'evil-window-split)
+  (evil-leader/set-key "w h" 'evil-window-left)
+  (evil-leader/set-key "w j" 'evil-window-down)
+  (evil-leader/set-key "w k" 'evil-window-up)
+  (evil-leader/set-key "w l" 'evil-window-right)
    )
 
 (use-package evil
