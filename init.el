@@ -169,6 +169,10 @@
   (evil-leader/set-key "l F" 'lsp-format-region)
  )
 
+(use-package ccls
+  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+         (lambda () (require 'ccls) (lsp))))
+
 (add-hook 'c-mode-hook #'lsp)
 (add-hook 'c++-mode-hook #'lsp)
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode)))
