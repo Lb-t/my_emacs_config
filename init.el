@@ -38,7 +38,8 @@
   (evil-leader/set-key "w c" 'evil-window-new)
   (evil-leader/set-key "w p" 'evil-window-prev)
   (evil-leader/set-key "w n" 'evil-window-next)
-  (evil-leader/set-key "w v" 'evil-window-vsplit)
+  (evil-leader/set-key "w -" 'evil-window-split)
+  (evil-leader/set-key "w |" 'evil-window-vsplit)
   (evil-leader/set-key "w h" 'evil-window-left)
   (evil-leader/set-key "w j" 'evil-window-down)
   (evil-leader/set-key "w k" 'evil-window-up)
@@ -50,6 +51,12 @@
   :config
   (evil-mode))
  
+(use-package evil-matchit
+  :ensure t
+  :defer t
+  :init
+  (global-evil-matchit-mode 1)
+  )
 
 (use-package treemacs
   :ensure t
@@ -241,6 +248,7 @@
   :ensure t
   :init
   (evil-leader/set-key "b s" 'ibuffer)
+  (setq evil-emacs-state-modes (delq 'ibuffer-mode evil-emacs-state-modes))
 )
 
 (use-package transpose-frame
@@ -266,8 +274,11 @@
   )
 
 (use-package spacemacs-theme
+  :ensure t
   :defer t
   :init (load-theme 'spacemacs-dark t))
+
+
 
 ;;(set-fringe-mode '(0 . 0))
 (scroll-bar-mode -1)
