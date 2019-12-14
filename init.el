@@ -38,8 +38,12 @@
   (evil-leader/set-key "w c" 'evil-window-new)
   (evil-leader/set-key "w p" 'evil-window-prev)
   (evil-leader/set-key "w n" 'evil-window-next)
-  (evil-leader/set-key "w v" 'evil-window-vsplit)
-  (evil-leader/set-key "w h" 'evil-window-split)
+  (evil-leader/set-key "w -" 'evil-window-split)
+  (evil-leader/set-key "w |" 'evil-window-vsplit)
+  (evil-leader/set-key "w h" 'evil-window-left)
+  (evil-leader/set-key "w j" 'evil-window-down)
+  (evil-leader/set-key "w k" 'evil-window-up)
+  (evil-leader/set-key "w l" 'evil-window-right)
    )
 
 (use-package evil
@@ -47,6 +51,12 @@
   :config
   (evil-mode))
  
+(use-package evil-matchit
+  :ensure t
+  :defer t
+  :init
+  (global-evil-matchit-mode 1)
+  )
 
 (use-package treemacs
   :ensure t
@@ -166,6 +176,10 @@
   (evil-leader/set-key "l F" 'lsp-format-region)
  )
 
+(use-package ccls
+  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+         (lambda () (require 'ccls) (lsp))))
+
 (add-hook 'c-mode-hook #'lsp)
 (add-hook 'c++-mode-hook #'lsp)
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode)))
@@ -234,6 +248,7 @@
   :ensure t
   :init
   (evil-leader/set-key "b s" 'ibuffer)
+  (setq evil-emacs-state-modes (delq 'ibuffer-mode evil-emacs-state-modes))
 )
 
 (use-package transpose-frame
@@ -264,8 +279,11 @@
   (which-key-mode))
 
 (use-package spacemacs-theme
+  :ensure t
   :defer t
   :init (load-theme 'spacemacs-dark t))
+
+
 
 ;;(set-fringe-mode '(0 . 0))
 (scroll-bar-mode -1)
@@ -275,6 +293,10 @@
 (require 'electric)
 (electric-pair-mode t)
 (setq make-backup-files nil)
+(setq auto-save-file-name-transforms
+          `((".*" ,(concat user-emacs-directory "auto-save/") t)))
+(setq backup-directory-alist
+          `(("." . ,(concat user-emacs-directory "backups"))))
 
 (setq-default buffer-file-coding-system 'utf-8-unix)
 
